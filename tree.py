@@ -56,3 +56,17 @@ class Tree:
             anterior = atual # variavel para guardar a posicao anterior
             self.insererecB(valor,atual,anterior,novo)
             return
+
+    def buscar(self, chave):
+        if (self.root == None):# se a arvore for vazia retorna falso
+            return False
+        esquilo = self.root # inicia pela raiz e percorre a arvore procurando o item
+        while (esquilo.item != chave): # enquanto o item que esta em 'esquilo' nao for o desejado, faz 
+            if (chave > esquilo.item):
+                esquilo = esquilo.dir # procura a direita
+            else:
+                esquilo = esquilo.esq # procura a esquerda
+            # se for nulo    
+            if (esquilo == None):
+                return False
+        return esquilo
