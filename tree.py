@@ -26,11 +26,13 @@ class Tree:
                     atual = atual.esq # variavel que percorre a arvore recebe o no da esquerda
                     if atual == None: # se for vazio
                         anterior.esq = novo # insere na esquerda
+                        print("inserido a esquerda do", anterior.item)
                         return 
                 else: # caminha para a direita
                     atual = atual.dir #variavel que percorre a arvore recebe o no da direita
                     if atual == None: # se for vazio insere
                         anterior.dir = novo
+                        print("inserido a direita do", anterior.item)
                         return
 
     def insererecB(self,valor,atual,anterior,novo):
@@ -71,11 +73,20 @@ class Tree:
                 return False
         return esquilo
 
-    def isHeap(self,arr,i,n):
+    def isHeap(self,vet,i,n):
         if i > int((n - 2) / 2): #condicao de parada . 
             return True
         
-        if  (arr[i] >= arr[2 * i + 1] and arr[i] >= arr[2 * i + 2] and 
-            self.isHeap(arr, 2 * i + 1, n) and self.isHeap(arr, 2 * i + 2, n)): # checa recursivamento se oss filhos tbm 
+        if  (vet[i] >= vet[2 * i + 1] and vet[i] >= vet[2 * i + 2] and 
+            self.isHeap(vet, 2 * i + 1, n) and self.isHeap(vet, 2 * i + 2, n)): # checa recursivamento se oss filhos tbm 
             return True                                               # sao heap
         return False #se em algum momento nao representar um max heap retorna falso
+
+
+if __name__ == "__main__":
+    arvere = Tree()
+    n = int(input(" Informe o numero de itens q deseja inserir -> "))
+    for i in range(n):
+        x = int(input(" Informe o valor -> "))
+        print (i)
+        arvere.inserir(x)
