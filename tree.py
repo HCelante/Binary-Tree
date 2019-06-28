@@ -73,14 +73,8 @@ class Tree:
                 return False
         return esquilo
 
-    def isHeap(self,vet,i,n):
-        if i > int((n - 2) / 2): #condicao de parada . 
-            return True
-        
-        if  (vet[i] >= vet[2 * i + 1] and vet[i] >= vet[2 * i + 2] and 
-            self.isHeap(vet, 2 * i + 1, n) and self.isHeap(vet, 2 * i + 2, n)): # checa recursivamento se oss filhos tbm 
-            return True                                               # sao heap
-        return False #se em algum momento nao representar um max heap retorna falso
+    def isHeap(self,i,n):
+        pass
 
 
 if __name__ == "__main__":
@@ -90,3 +84,4 @@ if __name__ == "__main__":
         x = int(input(" Informe o valor -> "))
         print (i)
         arvere.inserir(x)
+        #arvere.isHeap(0,99)
