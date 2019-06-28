@@ -84,4 +84,6 @@ if __name__ == "__main__":
         x = int(input(" Informe o valor -> "))
         print (i)
         arvere.inserir(x)
+    a = arvere.buscar(x)
+    print("a busca retornou ",a.item)
         #arvere.isHeap(0,99)
