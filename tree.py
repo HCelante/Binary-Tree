@@ -73,8 +73,36 @@ class Tree:
                 return False
         return esquilo
 
-    def isHeap(self,i,n):
+    def isMaxHeap(self,i,n):
         pass
+
+    def isMinHeap(self):
+        pass
+
+    def isBST(self):
+        pass
+
+    def isAVL(self):
+        pass
+    
+    def isComplete(self):
+        pass
+
+    def lowestValue(self):
+        pass
+    
+    def highestVaue(self):
+        pass
+    
+    def mirrorTree(self):
+        pass
+
+    def areCousins(self):
+        pass
+
+    def isSum(self):
+        pass
+        
 
 
 if __name__ == "__main__":
