@@ -70,3 +70,12 @@ class Tree:
             if (esquilo == None):
                 return False
         return esquilo
+
+    def isHeap(self,arr,i,n):
+        if i > int((n - 2) / 2): #condicao de parada . 
+            return True
+        
+        if  (arr[i] >= arr[2 * i + 1] and arr[i] >= arr[2 * i + 2] and 
+            self.isHeap(arr, 2 * i + 1, n) and self.isHeap(arr, 2 * i + 2, n)): # checa recursivamento se oss filhos tbm 
+            return True                                               # sao heap
+        return False #se em algum momento nao representar um max heap retorna falso
