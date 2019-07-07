@@ -82,7 +82,27 @@ class Tree:
     def isBST(self):
         pass
 
-    def isAVL(self):
+    def isAVL(self, root, cond):
+     
+        if root != None:
+            cond = False
+            if (root.dir != None):
+                if(root.dir.item < root.item):
+                    cond = False
+                elif(root.dir.item >= root.item):
+                    cond = self.isAVL(root.dir,True)
+            if (root.esq != None):
+                if(root.esq.item > root.item):
+                    cond = False
+                elif(root.esq.item <= root.item):
+                    cond =  self.isAVL(root.esq,True)
+            return cond    
+        elif(root == None):
+            return
+
+        
+
+
         pass
     
     def isComplete(self):
@@ -115,3 +135,5 @@ if __name__ == "__main__":
     a = arvere.buscar(x)
     print("a busca retornou ",a.item)
         #arvere.isHeap(0,99)
+    result = arvere.isAVL(arvere.root,True)
+    print(result)
