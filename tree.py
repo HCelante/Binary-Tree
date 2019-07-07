@@ -85,7 +85,7 @@ class Tree:
     def isAVL(self, root, cond):
      
         if root != None:
-            cond = False
+            cond = True
             if (root.dir != None):
                 if(root.dir.item < root.item):
                     cond = False
@@ -103,7 +103,7 @@ class Tree:
         
 
 
-        pass
+       
     
     def isComplete(self):
         pass
