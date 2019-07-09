@@ -116,6 +116,21 @@ class Tree:
         if (abs(alturaEsq - alturaDir) <= 1): 
             return True
         return False
+
+    def contadorNos(self, atual): 
+        if atual == None: 
+            return 0 
+        return (1+ self.contadorNos(atual.esq) + self.contadorNos(atual.dir)) 
+  
+    def isComplete(self, atual, index, qtdeNos): 
+        
+        if atual == None: 
+            return True
+        
+        if index >= qtdeNos : 
+            return False
+        
+        return (self.isComplete(atual.esq , 2*index+1 , qtdeNos) and self.isComplete(atual.dir, 2*index+2, qtdeNos)) 
              
     
     
@@ -174,7 +189,8 @@ while opcao != 3:
     print("3: Maior")
     print("4: Menor")
     print("5: AVL")
-    print("6: Sair do programa")
+    print("6: Completo")
+    print("7: Sair do programa")
     opcao = int(input("-> "))
     if opcao == 1:
         x = int(input("Informe o valor: "))
@@ -191,4 +207,9 @@ while opcao != 3:
         avrl = arv.isAVL(arv.root)
         print(avrl)
     elif opcao == 6:
+        qtdeNos = arv.contadorNos(arv.root)
+        index = 0
+        complet = arv.isComplete(arv.root, index, qtdeNos)
+        print(complet)
+    elif opcao == 7:
         break
