@@ -101,23 +101,24 @@ class Tree:
             print("is BST")
             return self.isBST(filhoEsq) and self.isBST(filhoDir)
  
-    
-    def altura(self, atual):
-        if atual == None or atual.esq == None and atual.dir == None:
+    def altura(self, atual): 
+        if atual is None: 
             return 0
-        else:
-            if self.altura(atual.esq) > self.altura(atual.dir):
-                return  1 + self.altura(atual.esq) 
-            else:
-                return  1 + self.altura(atual.dir) 
-    
-    
-    
+        return max(self.altura(atual.esq), self.altura(atual.dir)) + 1
+
     def isAVL(self, atual):
-        if (atual == None or (atual.dir == None and atual.esq == None)):
+        if atual == None:
+            return False # se arvore vazia
+        alturaEsq = self.altura(atual.esq)
+        print(alturaEsq)
+        alturaDir = self.altura(atual.dir)
+        print(alturaDir)
+        if (abs(alturaEsq - alturaDir) <= 1): 
             return True
-            
-        
+        return False
+             
+    
+    
     def highestValue(self, atual):
         if atual == None:
             return None
@@ -172,7 +173,8 @@ while opcao != 3:
     print("2: Exibir")
     print("3: Maior")
     print("4: Menor")
-    print("5: Sair do programa")
+    print("5: AVL")
+    print("6: Sair do programa")
     opcao = int(input("-> "))
     if opcao == 1:
         x = int(input("Informe o valor: "))
@@ -186,4 +188,7 @@ while opcao != 3:
         menor = arv.lowestValue(arv.root)
         print(menor)
     elif opcao == 5:
+        avrl = arv.isAVL(arv.root)
+        print(avrl)
+    elif opcao == 6:
         break
