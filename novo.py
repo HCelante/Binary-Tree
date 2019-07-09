@@ -180,10 +180,10 @@ class Tree:
         self.preOrder(self.root)
 
     def isSum(self,atual):
-        if ((atual.dir == None) and (atual.esq == None)):
-            return True
-        if (atual.item == (atual.dir.item + atual.esq.item)):
-            return self.isSum(atual.dir) and self.isSum(atual.esq)
+        if ((atual.dir == None) and (atual.esq == None)):# quando chega na folha retorna true pois a condicao se manteve verdadeira
+            return True # em toda a arvore
+        if (atual.item == (atual.dir.item + atual.esq.item)):# só avaça na arvore se a condicao se manter verdadeira
+            return self.isSum(atual.dir) and self.isSum(atual.esq) # retorna um and do resultado da subarvore esquerda e da direita
         else:
             return False
             
