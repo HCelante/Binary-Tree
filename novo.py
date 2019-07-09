@@ -179,6 +179,15 @@ class Tree:
         print("\n Exibindo em pre-ordem: ")
         self.preOrder(self.root)
 
+    def isSum(self,atual):
+        if ((atual.dir == None) and (atual.esq == None)):
+            return True
+        if (atual.item == (atual.dir.item + atual.esq.item)):
+            return self.isSum(atual.dir) and self.isSum(atual.esq)
+        else:
+            return False
+            
+
 
 arv = Tree()
 opcao = 0
