@@ -41,7 +41,7 @@ class Tree:
                 atual = atual.dir # caminha para direita
             if atual == None:
                 return None # encontrou uma folha -> sai
-        return atual  # terminou o laco while e chegou aqui e pq encontrou item
+        return atual  # terminou o laco while e chegou aqui pq encontrou item
 
     def maxHeap(self, atual):
         if atual == None:
@@ -187,7 +187,25 @@ class Tree:
         else:
             return False
             
+    def areCousins(self,p1,p2, avo):
+        if(avo == None):
+            return False
+        avo = avo
+        filhoesq = avo.esq
+        filhodir = avo.dir
+        neto1 = filhoesq.esq.item
+        neto2 = filhoesq.dir.item
+        neto3 = filhodir.esq.item
+        neto4 = filhodir.dir.item
 
+        if((p1 == (neto1 or neto2)) and (p2 == (neto3 or neto4))):
+            return True
+        if((p1 == (neto1 or neto2)) and (p2 != (neto3 or neto4))) or ((p1 != (neto1 or neto2)) and (p2 == (neto3 or neto4))):
+            return False
+        else:
+            return self.areCousins(p1,p2,avo.dir) and self.areCousins(p1,p2,avo.esq)
+
+ 
 
 arv = Tree()
 opcao = 0
