@@ -59,13 +59,13 @@ class Tree:
         
         if ((atual.item <= filhoEsq.item) or (atual.item <= filhoDir.item)):
             return False
-        return maxHeap(filhoEsq) and maxHeap(filhoDir) 
+        return self.maxHeap(filhoEsq) and self.maxHeap(filhoDir) 
         
 
-    def minHeap(self):
-        if self.root == None:
+    def minHeap(self, root):
+        if root == None:
             return None # se arvore vazia   
-        atual = self.root
+        atual = root
         
         if(atual.esq == None):
             return False
@@ -79,7 +79,7 @@ class Tree:
         
         if ((atual.item >= filhoEsq.item) or (atual.item >= filhoDir.item)):
             return False
-        return minHeap(filhoEsq) and minHeap(filhoDir) 
+        return self.minHeap(filhoEsq) and self.minHeap(filhoDir) 
     
 
     def isBST(self, atual):
