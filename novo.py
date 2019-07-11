@@ -219,24 +219,77 @@ class Tree:
              
     
     
-    def highestValue(self, atual):
-        if atual == None:
-            return None
-        maior = atual.item
-        filhoDir = atual.dir
-        if(filhoDir == None):
-            return maior
-        return self.highestValue(filhoDir)
+    #def highestValue(self, atual):
+        #if atual == None:
+            #return None
+        #maior = atual.item
+        #filhoDir = atual.dir
+        #if(filhoDir == None):
+            #return maior
+        #return self.highestValue(filhoDir)
 
+    def helper(self, res, atual, d):  
+    
+        if ( not atual):  
+            return
+    
 
-    def lowestValue(self, atual):
-        if atual == None:
-            return None
-        menor = atual.item
-        filhoEsq = atual.esq
-        if(filhoEsq == None):
-            return menor
-        return self.lowestValue(filhoEsq)
+        if (d == len(res)):  
+            res.append(atual.item)  
+    
+        else: 
+    
+
+            res[d] = max(res[d], atual.item)   
+        self.helper(res, atual.esq, d + 1)  
+        self.helper(res, atual.dir, d + 1)  
+
+    def helper2(self, res, atual, d):  
+    
+        if ( not atual):  
+            return
+    
+
+        if (d == len(res)):  
+            res.append(atual.item)  
+    
+        else: 
+    
+
+            res[d] = min(res[d], atual.item)   
+        self.helper2(res, atual.esq, d + 1)  
+        self.helper2(res, atual.dir, d + 1)  
+
+    def lowestValues(self, atual):  
+    
+        res = []  
+        self.helper2(res, atual, 0)  
+        menoraux = res[0]
+        for i in range(1, len(res)):
+            if(menoraux > res[i]):
+                menoraux = res[i]
+        return(menoraux)
+  
+  
+    def largestValues(self, atual):  
+    
+        res = []  
+        self.helper(res, atual, 0)  
+        maioraux = res[0]
+        for i in range(1, len(res)):
+            if(maioraux < res[i]):
+                maioraux = res[i]
+        return(maioraux)
+
+    
+    #def lowestValue(self, atual):
+        #if atual == None:
+            #return None
+        #menor = atual.item
+        #filhoEsq = atual.esq
+        #if(filhoEsq == None):
+            #return menor
+        #return self.lowestValue(filhoEsq)
     
     def inOrder(self, atual):
         if atual != None:
@@ -463,6 +516,11 @@ while opcao != 3:
         print(arvoreaps.minHeap(arvoreaps.root))
         print("BST:")
         print(arvoreaps.isBST(arvoreaps.root))
+        print("maior numero:")
+        print(arvoreaps.largestValues(arvoreaps.root))
+        print("Menor numero:")
+        print(arvoreaps.lowestValues(arvoreaps.root))
+
         
         # FIM TESTES
         #############################################################################
