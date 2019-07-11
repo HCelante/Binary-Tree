@@ -38,7 +38,70 @@ class Tree:
                         anterior.dir = novo
                         return
     
+    def remover(self, v):
+        if self.root == None:
+                return False # se arvore vazia
+        atual = self.root
+        pai = self.root
+        filho_esq = True
+        while atual.item != v: # enquanto nao encontrou
+            pai = atual
+            if v < atual.item: # caminha para esquerda
+                atual = atual.esq
+                filho_esq = True # é filho a esquerda? sim
+            else: # caminha para direita
+                atual = atual.dir 
+                filho_esq = False # é filho a esquerda? NAO
+            if atual == None:
+                return False # encontrou uma folha -> sai
+        
+        if atual.esq == None and atual.dir == None:
+            if atual == self.root:
+                self.root = None # se raiz
+            else:
+                if filho_esq:
+                    pai.esq =  None # se for filho a esquerda do pai
+                else:
+                    pai.dir = None # se for filho a direita do pai
 
+         # Se é pai e nao possui um filho a direita, substitui pela subarvore a direita
+        elif atual.dir == None:
+            if atual == self.root:
+                self.root = atual.esq # se raiz
+            else:
+                if filho_esq:
+                    pai.esq = atual.esq # se for filho a esquerda do pai
+                else:
+                    pai.dir = atual.esq # se for filho a direita do pai
+         
+         # Se é pai e nao possui um filho a esquerda, substitui pela subarvore a esquerda
+        elif atual.esq == None:
+            if atual == self.root:
+                self.root = atual.dir # se raiz
+            else:
+                if filho_esq:
+                    pai.esq = atual.dir # se for filho a esquerda do pai
+                else:
+                    pai.dir = atual.dir # se for  filho a direita do pai
+
+         # Se possui mais de um filho, se for um avô ou outro grau maior de parentesco
+        else:
+            sucessor = self.nosucessor(atual)
+               # Usando sucessor que seria o Nó mais a esquerda da subarvore a direita do No que deseja-se remover
+            if atual == self.root:
+                self.root = sucessor # se raiz
+            else:
+                if filho_esq:
+                    pai.esq = sucessor # se for filho a esquerda do pai
+                else:
+                        pai.dir = sucessor # se for filho a direita do pai
+            sucessor.esq = atual.esq # acertando o ponteiro a esquerda do sucessor agora que ele assumiu 
+                                        # a posição correta na arvore   
+
+        return True
+    
+    
+    
     def buscar(self, chave):
         if self.root == None:
             return None # se arvore vazia
@@ -96,18 +159,19 @@ class Tree:
             return None # se arvore vazia
         filhoEsq = atual.esq
         filhoDir = atual.dir
-        
         if(filhoEsq == None and filhoDir == None):
-            print("is BST")
+            return True
+        elif(filhoEsq == None) and (filhoDir.item > atual.item):
+            return True
+        elif(filhoDir == None) and (filhoEsq.item < atual.item):
             return True
         elif(filhoEsq == None) and (filhoDir.item < atual.item):
             return False
         elif(filhoDir == None) and (filhoEsq.item > atual.item):
             return False
-        elif((filhoEsq.item > atual.item) or (filhoDir.item < atual.item)):    
+        elif(filhoEsq.item > atual.item) or (filhoDir.item < atual.item):    
             return False
         else:
-            print("is BST")
             return self.isBST(filhoEsq) and self.isBST(filhoDir)
  
     def altura(self, atual): 
@@ -272,39 +336,48 @@ opcao = 0
 while opcao != 3:
     print("\n Entre com a opcao:")
     print("1: Inserir")
-    print("2: Exibir")
-    print("3: Maior")
-    print("4: Menor")
-    print("5: AVL")
-    print("6: Completo")
-    print("7: Sair do programa")
-    print("8: Se for Soma")
-    print("9: Bateria de testes usando arvore soma de 3 niveis")
+    print("2: Remover")
+    print("3: Exibir")
+    print("4: Maior")
+    print("5: Menor")
+    print("6: BST")
+    print("7: AVL")
+    print("8: Completo")
+    print("9: Sair do programa")
+    print("10: Se for Soma")
+    print("11: Bateria de testes usando arvore soma de 3 niveis")
     opcao = int(input("-> "))
     if opcao == 1:
         x = int(input("Informe o valor: "))
         arv.inserir(x)
     elif opcao == 2:
-        arv.caminhar()
+        x = int(input(" Informe o valor -> "))
+        if arv.remover(x) == False:
+            print(" Valor nao encontrado!")
     elif opcao == 3:
+        arv.caminhar()
+    elif opcao == 4:
         maior = arv.highestValue(arv.root)
         print(maior)
-    elif opcao == 4:
+    elif opcao == 5:
         menor = arv.lowestValue(arv.root)
         print(menor)
-    elif opcao == 5:
+    elif opcao == 6:
+        bst = arv.isBST(arv.root)
+        print(bst)
+    elif opcao == 7:
         avrl = arv.isAVL(arv.root)
         print(avrl)
-    elif opcao == 6:
+    elif opcao == 8:
         qtdeNos = arv.contadorNos(arv.root)
         index = 0
         complet = arv.isComplete(arv.root, index, qtdeNos)
         print(complet)
-    elif opcao == 7:
-        break
-    elif opcao == 8:
-        print(arv.isSum(arv.root))
     elif opcao == 9:
+        break
+    elif opcao == 10:
+        print(arv.isSum(arv.root))
+    elif opcao == 11:
         # arvore soma
         print("Teste para arvore Soma")
         #########################################################
