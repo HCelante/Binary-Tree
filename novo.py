@@ -278,31 +278,26 @@ class Tree:
     #        return 
 
 
-    def isSum(self,atual):
-        if(atual == None):
-            return
-        if ((atual.dir == None) or (atual.esq == None)):
-            return 
-        elif(atual.item == (self.isSum(atual.dir) + self.isSum(atual.esq))):
-            return True
-        else: 
-            return False
+    #def isSum(self,atual):
+        #if(atual == None):
+            #return
+        #if ((atual.dir == None) or (atual.esq == None)):
+            #return 
+        #elif(atual.item == (self.isSum(atual.dir) + self.isSum(atual.esq))):
+            #return True
+        #else: 
+            #return False
 
     def sum(self, atual):
         if(atual == None):
-            return 
-        
+            return False
         return self.sum(atual.esq) + atual.item + self.sum(atual.dir)
 
     def isSum(self, atual):
-        if(atual == None):
-            return None
-        #elif(atual.dir == None or atual.esq == None):
-        #    return False
-
+        if(atual == None or (atual.esq == None and atual.dir == None)):
+            return True
         somaEsq = self.sum(atual.esq)
         somaDir = self.sum(atual.dir)
-
         if((atual.item == somaEsq + somaDir) and self.isSum(atual.esq) and self.isSum(atual.dir)):
             return True
         return False
@@ -460,8 +455,14 @@ while opcao != 3:
         print(arvoreaps.isAVL(arvoreaps.root))
         print("é completa?")
         print(arvoreaps.isComplete(arvoreaps.root,0,arvoreaps.contadorNos(arvoreaps.root)))
+        print("é max?")
         print(arvoreaps.maxHeap(arvoreaps.root))
+        print("isSUM?")
         print(arvoreaps.isSum(arvoreaps.root))
-
+        print("é min?")
+        print(arvoreaps.minHeap(arvoreaps.root))
+        print("BST:")
+        print(arvoreaps.isBST(arvoreaps.root))
+        
         # FIM TESTES
         #############################################################################
