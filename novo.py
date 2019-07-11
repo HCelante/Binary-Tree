@@ -201,6 +201,16 @@ class Tree:
         else:
             return 
 
+    def mirrorTree(self,atual):
+        if atual == None:
+            return
+        temp = No(None,None,None)
+        temp = atual.dir 
+        atual.dir = atual.esq
+        atual.esq = temp
+        self.mirrorTree(atual.dir)
+        self.mirrorTree(atual.esq)
+
     #    
     #    if ((atual.dir == None) and (atual.esq == None)):# quando chega na folha retorna true pois a condicao se manteve verdadeira
     #        return # em toda a arvore
@@ -231,16 +241,20 @@ class Tree:
         if(raiz == None or raiz.esq == None or raiz.dir == None or raiz.dir.esq == None or raiz.dir.dir == None):
             print("retorna")
             return
-        print("avo = ", raiz.item)
+        print("                             avo = ", raiz.item)
+        print("                             /  \   ")
+
         Avo = raiz
         filhoesq = Avo.esq
-        print("filho esq", filhoesq.item)
         filhodir = Avo.dir
-        print("filho dir", filhodir.item)
+        print("                filho esq", filhoesq.item,"   " ,filhodir.item,"filho dir")
+        print("                         / \     / \ ")
+                                       
         neto1 = int(filhoesq.esq.item)
-        print("filho esq do filho esq", filhoesq.esq.item)
         neto2 = int(filhoesq.dir.item)
-        print("filho dir do filho esq", filhoesq.dir.item)
+        print("                       ", filhoesq.esq.item," ", filhoesq.dir.item,"",filhodir.esq.item, "",filhodir.dir.item)
+        
+        print("filho dir do filho esq")
         neto3 = int(filhodir.esq.item)
         neto4 = int(filhodir.dir.item)
         if((p1 == neto1 or p1 == neto2) and (p2 == neto3 or p2 == neto4)):
@@ -254,35 +268,7 @@ class Tree:
 
 arv = Tree()
 opcao = 0
-# arvore soma
-print("Teste para arvore Soma")
-#########################################################
-# TESTES
-soma = Tree()
-soma.inserir (55)
-soma.root.dir = No(34,No(21,None,None),No(13,None,None))
-soma.root.esq = No(21, No(13,None,None),No(5,None,None))
-#soma.preOrder(soma.root)
-#print(soma.isSum(soma.root))
-if (soma.isSum(soma.root)):
-    print("Funcao eh Soma OK")
-else:
-    print("ehSoma Falhou")
-if (soma.areCousins(21,5,soma.root)):
-    print("Funcao Sao Primos Ok")
-else: 
-    print("Sao Primos falhou")
-if(soma.isComplete(soma.root,0,soma.contadorNos(soma.root))):
-    print("Funcao isComplete Ok")
-if False == (soma.maxHeap(soma.root)):
-    print("Funcao maxHeap Ok")
-if True == (soma.isAVL(soma.root)):
-    print("Funcao AVL OK")
 
-
-
-# FIM TESTES
-#############################################################################
 while opcao != 3:
     print("\n Entre com a opcao:")
     print("1: Inserir")
@@ -293,6 +279,7 @@ while opcao != 3:
     print("6: Completo")
     print("7: Sair do programa")
     print("8: Se for Soma")
+    print("9: Bateria de testes usando arvore soma")
     opcao = int(input("-> "))
     if opcao == 1:
         x = int(input("Informe o valor: "))
@@ -317,3 +304,37 @@ while opcao != 3:
         break
     elif opcao == 8:
         print(arv.isSum(arv.root))
+    elif opcao == 9:
+        # arvore soma
+        print("Teste para arvore Soma")
+        #########################################################
+        # TESTES
+        soma = Tree()
+        soma.inserir (55)
+        soma.root.dir = No(34,No(21,None,None),No(13,None,None))
+        soma.root.esq = No(21, No(13,None,None),No(5,None,None))
+        #soma.preOrder(soma.root)
+        #print(soma.isSum(soma.root))
+        if (soma.isSum(soma.root)):
+            print("Funcao eh Soma OK")
+        else:
+            print("ehSoma Falhou")
+        if (soma.areCousins(21,5,soma.root)):
+            print("Funcao Sao Primos Ok")
+        else: 
+            print("Sao Primos falhou")
+        if(soma.isComplete(soma.root,0,soma.contadorNos(soma.root))):
+            print("Funcao isComplete Ok")
+        if False == (soma.maxHeap(soma.root)):
+            print("Funcao maxHeap Ok")
+        if True == (soma.isAVL(soma.root)):
+            print("Funcao AVL OK")
+        soma.mirrorTree(soma.root)
+        print("poder da mirrorizacao")
+        print(soma.areCousins(21,5,soma.root))
+
+
+
+
+        # FIM TESTES
+        #############################################################################
