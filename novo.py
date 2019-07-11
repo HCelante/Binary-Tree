@@ -279,7 +279,7 @@ while opcao != 3:
     print("6: Completo")
     print("7: Sair do programa")
     print("8: Se for Soma")
-    print("9: Bateria de testes usando arvore soma")
+    print("9: Bateria de testes usando arvore soma de 3 niveis")
     opcao = int(input("-> "))
     if opcao == 1:
         x = int(input("Informe o valor: "))
@@ -331,7 +331,7 @@ while opcao != 3:
             print("Funcao AVL OK")
         soma.mirrorTree(soma.root)
         print("poder da mirrorizacao")
-        print(soma.areCousins(21,5,soma.root))
+        soma.areCousins(21,5,soma.root)
 
 
 
