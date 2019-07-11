@@ -102,18 +102,30 @@ class Tree:
     
     
     
-    def buscar(self, chave):
-        if self.root == None:
-            return None # se arvore vazia
-        atual = self.root # comeca a procurar desde raiz
-        while atual.item != chave: # enquanto nao encontrou
-            if chave < atual.item:
-                atual = atual.esq # caminha para esquerda
-            else:
-                atual = atual.dir # caminha para direita
-            if atual == None:
-                return None # encontrou uma folha -> sai
-        return atual  # terminou o laco while e chegou aqui pq encontrou item
+    #def buscar(self, chave):
+    #    if self.root == None:
+    #        return None # se arvore vazia
+    #    atual = self.root # comeca a procurar desde raiz
+    #    while atual.item != chave: # enquanto nao encontrou
+    #        if chave < atual.item:
+    #            atual = atual.esq # caminha para esquerda
+    #        else:
+    #            atual = atual.dir # caminha para direita
+    #        if atual == None:
+    #            return None # encontrou uma folha -> sai
+    #    return atual  # terminou o laco while e chegou aqui pq encontrou item
+#
+    #def buscarRec(self,chave,atual):
+    #    if atual == None:
+    #        return
+    #    atual.item = int(atual.item)
+    #    chave = int(chave)
+    #    if atual.item == chave:
+    #        return True
+    #    else:
+    #        return self.buscarRec(chave,atual.esq) and self.buscarRec(chave,atual.dir)
+            
+
 
     def maxHeap(self, atual):
         if atual == None:
@@ -129,8 +141,8 @@ class Tree:
         else:
             filhoDir = atual.dir
         
-        if ((atual.item <= filhoEsq.item) or (atual.item <= filhoDir.item)):
-            return False
+        if ((atual.item > filhoEsq.item) or (atual.item > filhoDir.item)):
+            return True
         return True and (self.maxHeap(filhoEsq) and self.maxHeap(filhoDir)) 
         
 
@@ -183,10 +195,10 @@ class Tree:
         if atual == None:
             return False # se arvore vazia
         alturaEsq = self.altura(atual.esq)
-        #print(alturaEsq)
+        print(alturaEsq)
         alturaDir = self.altura(atual.dir)
-        #print(alturaDir)
-        if (abs(alturaEsq - alturaDir) <= 1): 
+        print(alturaDir)
+        if (abs(alturaEsq - alturaDir) <= 1) and (self.isAVL(atual.esq) is True) and (self.isAVL(atual.dir) is True): 
             return True
         return False
 
@@ -252,18 +264,49 @@ class Tree:
         print("\n Exibindo em pre-ordem: ")
         self.preOrder(self.root)
 
+    #def isSum(self,atual):
+#
+    #    if ((atual == None) or (atual.dir == None) or (atual.esq == None)):
+    #        return
+    #    #print (atual.item )
+    #    #print (atual.dir.item + atual.esq.item)
+    #    if(atual.item == (atual.dir.item + atual.esq.item)):
+    #        
+    #        return True and (self.isSum(atual.dir) and self.isSum(atual.esq))
+#
+    #    else:
+    #        return 
+
+
     def isSum(self,atual):
-
-        if ((atual == None) or (atual.dir == None) or (atual.esq == None)):
+        if(atual == None):
             return
-        #print (atual.item )
-        #print (atual.dir.item + atual.esq.item)
-        if(atual.item == (atual.dir.item + atual.esq.item)):
-            
-            return True and (self.isSum(atual.dir) and self.isSum(atual.esq))
-
-        else:
+        if ((atual.dir == None) or (atual.esq == None)):
             return 
+        elif(atual.item == (self.isSum(atual.dir) + self.isSum(atual.esq))):
+            return True
+        else: 
+            return False
+
+    def sum(self, atual):
+        if(atual == None):
+            return 
+        
+        return self.sum(atual.esq) + atual.item + self.sum(atual.dir)
+
+    def isSum(self, atual):
+        if(atual == None):
+            return None
+        #elif(atual.dir == None or atual.esq == None):
+        #    return False
+
+        somaEsq = self.sum(atual.esq)
+        somaDir = self.sum(atual.dir)
+
+        if((atual.item == somaEsq + somaDir) and self.isSum(atual.esq) and self.isSum(atual.dir)):
+            return True
+        return False
+
 
     def mirrorTree(self,atual):
         if atual == None:
@@ -405,9 +448,20 @@ while opcao != 3:
         soma.mirrorTree(soma.root)
         print("poder da mirrorizacao")
         soma.areCousins(21,5,soma.root)
-
-
-
+        print(soma.isAVL(soma.root))
+    elif opcao == 12:
+        arvoreaps = Tree()
+        arvoreaps.inserir(22)
+        arvoreaps.root.dir = No(3,No(1,None,None),No(2,None,None))
+        arvoreaps.root.esq = No(8,No(7,None,None),No(1,None,None))
+        print(arvoreaps.areCousins(2,7,arvoreaps.root))
+        arvoreaps.caminhar()
+        print("é avl :")
+        print(arvoreaps.isAVL(arvoreaps.root))
+        print("é completa?")
+        print(arvoreaps.isComplete(arvoreaps.root,0,arvoreaps.contadorNos(arvoreaps.root)))
+        print(arvoreaps.maxHeap(arvoreaps.root))
+        print(arvoreaps.isSum(arvoreaps.root))
 
         # FIM TESTES
         #############################################################################
