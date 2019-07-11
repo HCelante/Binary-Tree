@@ -502,7 +502,9 @@ while opcao != 3:
         arvoreaps.inserir(22)
         arvoreaps.root.dir = No(3,No(1,None,None),No(2,None,None))
         arvoreaps.root.esq = No(8,No(7,None,None),No(1,None,None))
+        print("sao primos 2 e 7?")
         print(arvoreaps.areCousins(2,7,arvoreaps.root))
+
         arvoreaps.caminhar()
         print("é avl :")
         print(arvoreaps.isAVL(arvoreaps.root))
@@ -520,7 +522,9 @@ while opcao != 3:
         print(arvoreaps.largestValues(arvoreaps.root))
         print("Menor numero:")
         print(arvoreaps.lowestValues(arvoreaps.root))
-
+        print("mirror tree usando o print do are cousins")
+        arvoreaps.mirrorTree(arvoreaps.root)
+        print(arvoreaps.areCousins(2,7,arvoreaps.root))
         
         # FIM TESTES
         #############################################################################
